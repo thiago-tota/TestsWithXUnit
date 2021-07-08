@@ -6,11 +6,17 @@ namespace Tests.XUnit
 {
     public class CalculatorSumTwoValues
     {
-        [Fact]
-        public void TwoValuesSumResult()
+        private readonly Calculator _calculator;
+
+        public CalculatorSumTwoValues()
         {
-            var calculator = new Calculator();
-            var result = calculator.SumTwoValues(3, 5);
+            _calculator = new Calculator();
+        }
+
+        [Fact]
+        public void GivenTwoValuesThenReturnSumResult()
+        {
+            var result = _calculator.SumTwoValues(3, 5);
 
             Assert.Equal(8, result);
         }
@@ -19,10 +25,9 @@ namespace Tests.XUnit
         [InlineData(5, 5, 10)]
         [InlineData(-10, 50, 40)]
         [InlineData(-20, -30, -50)]
-        public void TwoValuesSumResultInLineData(int valueA, int valueB, int valueExpected)
+        public void GivenTwoValuesThenSumResultUsingInLineData(int valueA, int valueB, int valueExpected)
         {
-            var calculator = new Calculator();
-            var result = calculator.SumTwoValues(valueA, valueB);
+            var result = _calculator.SumTwoValues(valueA, valueB);
 
             Assert.Equal(valueExpected, result);
         }
@@ -30,20 +35,18 @@ namespace Tests.XUnit
 
         [Theory]
         [ClassData(typeof(SumTwoValuesTestData))]
-        public void TwoValuesSumResultClassData(int valueA, int valueB, int valueExpected)
+        public void GivenTwoValuesThenSumResultUsingClassData(int valueA, int valueB, int valueExpected)
         {
-            var calculator = new Calculator();
-            var result = calculator.SumTwoValues(valueA, valueB);
+            var result = _calculator.SumTwoValues(valueA, valueB);
 
             Assert.Equal(valueExpected, result);
         }
 
         [Theory]
         [MemberData(nameof(GeneralTestData.GetSumTwoValuesData), MemberType = typeof(GeneralTestData))]
-        public void TwoValuesSumResultMemberData(int valueA, int valueB, int valueExpected)
+        public void GivenTwoValuesThenSumResultUsingMemberData(int valueA, int valueB, int valueExpected)
         {
-            var calculator = new Calculator();
-            var result = calculator.SumTwoValues(valueA, valueB);
+            var result = _calculator.SumTwoValues(valueA, valueB);
 
             Assert.Equal(valueExpected, result);
         }
